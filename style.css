@@ -1,0 +1,580 @@
+@charset "UTF-8";
+
+/* リセットcssはここから */
+/* Copyright (c) 2021 Elad Shechter - https://github.com/elad2412/the-new-css-reset Released under the MIT license https://opensource.org/license/mit/ */
+*:where(:not(html,iframe,canvas,img,svg,video,audio):not(svg *,symbol *)){all:unset;display:revert}*,*::before,*::after{box-sizing:border-box}a,button{cursor:revert}:where(ol,ul){counter-reset:revert}img{max-inline-size:100%;max-block-size:100%}table{border-collapse:collapse}input,textarea{-webkit-user-select:auto}textarea{white-space:revert}meter{-webkit-appearance:revert;appearance:revert}:where(pre){all:revert;box-sizing:border-box}::placeholder{color:unset}:where([hidden]){display:none}:where([contenteditable]:not([contenteditable="false"])){-moz-user-modify:read-write;-webkit-user-modify:read-write;overflow-wrap:break-word;-webkit-line-break:after-white-space;-webkit-user-select:auto}:where([draggable="true"]){-webkit-user-drag:element}:where(dialog:modal){all:revert;box-sizing:border-box}
+/* リセットcssここまで */
+
+/* 特定のセレクタに対してスタイルを復元・指定 */
+
+/* キーボード操作でのフォーカスリングを復元 */
+:where(:focus-visible) {
+    outline: revert;
+}
+
+/* imgを表示した際のズレを解消 */
+:where(img) {
+    vertical-align: bottom;
+}
+
+/* カーソルをポインターに */
+a, button, :where([type="checkbox"], [type="radio"], [type="submit"], [type="reset"], [type="button"], select, optgroup, option, label:has([type="checkbox"], [type="radio"]), summary) {
+    cursor: pointer;
+}
+
+/* 一部のhtmlタグのスタイルを復元 */
+:where(em, strong, small, s, cite, q, dfn, abbr, data, time, code, var, samp, kbd, sub, sup, i, b, u, mark, ruby, rb, rt, rtc, rp, bdi, bdo, span, br, wbr, ins, del, center, font) {
+    all: revert;
+    box-sizing: border-box;
+}
+
+/* ページ内リンクをクリックした後に、上部に余白を作る。不要ならば削除してください。 */
+:where(html) {
+	scroll-padding-block-start: 3em;
+    /* スムーススクロールにしたい場合はここに scroll-behavior: smooth; を追加してください。 */
+}
+
+/* CSS変数（カスタムプロパティ）を設定 */
+:root {
+    --white: #fff;
+    --gray: rgb(0 1 2 / 0.065);
+    --red: #e81a35;
+    --hr-border-color: #ccc;
+    --button-border-color: #555;
+
+    --text-color: #222;
+    --background-color: #fff;
+    --nav-background-color: var(--background-color);
+    --link-color: rgb(74 69 143);
+    --link-visited-color: #767676;
+    --main-color: rgb(74 69 143);
+    --main-color-t: rgb(74 69 143 / 0.2);
+    --div__background-image-gradation-top-color: rgb(255 255 255 / 1);
+    --div__background-image-gradation-bottom-color: rgb(74 69 143 / 0.125);
+}
+
+/* bodyで基本の指定 */
+body {
+    font-family: "Helvetica Neue", "Arial", sans-serif;/* フォントの種類。お好みで変更してください。 */
+    font-size: clamp(0.75rem, 3.8vw, 1rem);/* フォントサイズは最小値(0.75rem=12px)、設定したい値(3.8vw)、最大値(1rem=16px)を指定。お好みで変更してください。 */
+    line-height: 1.8;/* 行の高さ */
+    overflow-wrap: break-word;
+    overflow-wrap: anywhere;/* 文字の折り返し。収まらない場合に折り返す。anywhereが非対応時のフォールバックとしてbreak-wordも指定。 */
+    line-break: strict;/* 禁則処理は強めに指定。通常はnormal。 */
+    hanging-punctuation: allow-end;/* 句読点のぶら下げ。対応ブラウザは少ない。不要ならば削除してください。 */
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;/* 文字サイズの調整 */
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+/* 背景のグラデーション */
+.div__background-image-gradation {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: -1;
+    background-image: linear-gradient(180deg, var(--div__background-image-gradation-top-color) 40%, var(--div__background-image-gradation-bottom-color) 80%);
+}
+
+/* ヘッダーをスクロールしたあとの背景のグラデーション */
+.fix-body .div__background-image-gradation {
+    background-image: linear-gradient(180deg, var(--div__background-image-gradation-top-color) 80%, var(--div__background-image-gradation-bottom-color) 100%);
+}
+
+/* ヘッダー */
+.header {
+    display: grid;
+    place-content: center;
+    place-items: center;
+    width: 100%;
+    height: 90vh;
+    height: 90svh;
+    position: relative;
+}
+
+/* ヘッダーで使用する画像 */
+.header img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 90vh;
+    max-height: 90svh;
+    object-fit: cover;
+    object-position: center center;
+    overflow: hidden;
+}
+
+/* .header-1のとき：画像がフェードインあり、縦書き */
+/* フェードイン用の画像 */
+.header-1 img {
+    opacity: 0;
+    animation: fade-In .75s linear 1s forwards;
+}
+
+@keyframes fade-In {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/* サイト名の部分 */
+.sitename {
+    position: absolute;
+    display: grid;
+    place-content: center;
+    place-items: center;
+    color: var(--white);
+}
+
+/* 図形の円 */
+.sitename::before {
+    content: '';
+    position: absolute;
+    width: 75vw;
+    height: 75vw;
+    max-width: 25em;
+    max-height: 25em;
+    border: solid 2px var(--white);
+    border-radius: 100%;
+}
+
+/* h1タグ */
+.h1 {
+    white-space: nowrap;
+    font-size: 2.5em;
+    font-family: serif, "Helvetica Neue", "Arial", sans-serif;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--main-color);
+    letter-spacing: 0.05em;
+}
+
+/* 横書きに変更 */
+.h1-1 {
+    writing-mode: vertical-tb;
+}
+
+/* 最大幅、余白、1カラム中央寄せを指定 */
+.wrap {
+    padding: 6em min(7.5%, 1.5em);
+    max-width: 45em;
+    margin: 0 auto;
+}
+
+/* ナビゲーション */
+.nav {
+    display: flex;
+    column-gap: 1em;
+    justify-content: center;
+    width: 100%;
+    position: sticky;/* ナビゲーションを上部に固定。不要ならば削除してください。 */
+    top: 0;
+    margin-top: 0.5em;
+    padding: 0.5em 0;
+}
+
+/* ヘッダー部分をスクロールしたあとのナビゲーション */
+.fix-body .nav {
+    background-color: var(--nav-background-color);
+}
+
+/* フッター */
+.footer {
+    text-align: center;
+    background-color: var(--gray);
+}
+
+/* セクションの余白を指定 */
+.section + .section {
+    margin-top: 6em;
+}
+
+/* aタグ */
+:where(a) {
+    text-decoration: underline;
+    color: var(--link-color);
+}
+
+/* 訪問済みaタグ */
+:where(a:visited) {
+    color: var(--link-visited-color);
+}
+
+/* ホバー・アクティブでのaタグ */
+:where(a:is(:hover, :active)) {
+    outline: dotted 1px;
+}
+
+/* 強調の赤文字 */
+.strong {
+    color: var(--red);
+}
+
+/* マークタグをカスタマイズする例 */
+.mark {
+    color: unset;
+    background-color: var(--main-color-t);
+}
+
+/* ulリスト, olリスト */
+:where(ul, ol) {
+    margin-block: 1em;/* 上下の余白 */
+    padding-inline-start: 2em;/* 左側の余白 */
+}
+
+.list-style-position-inside {
+    list-style-position: inside;
+}
+
+.ul-disc {
+    list-style-type: disc;
+}
+
+.ul-circle {
+    list-style-type: circle;
+}
+
+.ul-square {
+    list-style-type: square;
+}
+
+.ul-moji-ninni-1 {
+    list-style-type: "★ ";
+}
+
+.ol-decimal {
+    list-style-type: decimal;
+}
+
+.ol-decimal-leading-zero {
+    list-style-type: decimal-leading-zero;
+}
+
+.ol-lower-latin {
+    list-style-type: lower-latin;
+}
+
+.ol-upper-latin {
+    list-style-type: upper-latin;
+}
+
+.ol-lower-roman {
+    list-style-type: lower-roman;
+}
+
+.ol-upper-roman {
+    list-style-type: upper-roman;
+}
+
+.ol-lower-greek {
+    list-style-type: lower-greek;
+}
+
+.ol-hiragana {
+    list-style-type: hiragana;
+}
+
+.ol-katakana {
+    list-style-type: katakana;
+}
+
+.ol-hiragana-iroha {
+    list-style-type: hiragana-iroha;
+}
+
+.ol-katakana-iroha {
+    list-style-type: katakana-iroha;
+}
+
+.ol-japanese-informal {
+    list-style-type: japanese-informal;
+}
+
+.ol-japanese-formal {
+    list-style-type: japanese-formal;
+}
+
+/* 見出しの余白を統一している。不要ならば削除してください。 */
+:where(h2, h3, h4, h5, h6) {
+    margin: 2em 0 1em;
+}
+
+/* 見出しの装飾。class名で管理している。 */
+.h-boldonly {
+    font-weight: bold;
+    margin-bottom: 0.25em;
+}
+
+.h-center {
+    text-align: center;
+}
+
+.h-underline {
+    font-weight: bold;
+    border-bottom: solid 2px var(--text-color);
+}
+
+.h-leftline {
+    font-weight: bold;
+    border-left: double 8px var(--text-color);
+    padding: 0.5em 1em;
+}
+
+.h-fill {
+    width: fit-content;
+    background-color: var(--main-color-t);
+    padding: 0.25em 1em;
+}
+
+.h-square {
+    width: fit-content;
+    border: solid 1px var(--text-color);
+    padding: 0.25em 1em;
+}
+
+.h-big {
+    font-size: 1.25em;
+}
+
+.h-center {
+    text-align: center;
+}
+
+/* hrのスタイル */
+.hr {
+    border-block-start: solid 1px var(--hr-border-color);
+    margin-block: 6em;
+}
+
+/* input, textarea, button, select のスタイル */
+:where(input, button, textarea, select) {
+    font-size: max(1em, 1rem);/* フォーム入力のアクセシビリティを考慮して1rem以上を設定。bodyと同じフォントサイズにしたいときは削除する */
+    background-color: var(--white);
+    border: solid 1px var(--button-border-color);
+    border-radius: 4px;
+    padding: 0 0.5em;
+    width: 12em;
+    max-width: 100%;
+    height: 2.25em;
+    align-items: revert;
+}
+
+/* focusでのスタイル。特定の条件を除いている */
+:where(:is(input, textarea, select):not([type="submit"], [type="reset"], [type="button"], button, [type="radio"], [type="checkbox"], [type="range"], [type="color"], [type="image"], [type="file"])):focus {
+    outline: solid 1px var(--button-border-color);
+}
+
+/* [type="submit"], [type="reset"], [type="button"], buttonのスタイル */
+:where([type="submit"], [type="reset"], [type="button"], button) {
+    width: unset;
+    color: var(--white);
+    background-color: var(--button-border-color);
+}
+
+/* デバイスにホバー操作が可能な入力デバイスが一つでも存在する場合 */
+/* [type="submit"], [type="reset"], [type="button"], buttonのホバー時・アクティブ時のスタイル */
+@media (any-hover: hover) {
+    :where([type="submit"], [type="reset"], [type="button"], button):is(:hover, :active) {
+        opacity: 0.8;
+    }
+}
+
+:where([type="radio"], [type="checkbox"], [type="range"], [type="color"], [type="image"], [type="file"]) {
+    all: revert;
+    box-sizing: border-box;
+    font: unset;
+    font-size: max(1em, 1rem);/* フォーム入力のアクセシビリティを考慮して1rem以上を設定。bodyと同じフォントサイズにしたいときは削除する */
+    margin: unset;
+    padding: unset;
+    cursor: pointer;
+}
+
+:where([type="radio"], [type="checkbox"], [type="range"]) {
+    accent-color: var(--main-color);
+}
+
+:where([type="checkbox"], [type="radio"]) {
+    height: 1.25em;
+    width: 1.25em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+
+:where(textarea) {
+    height: unset;
+    line-height: 1.5;
+    letter-spacing: 0;
+    resize: both;
+}
+
+:where(select) {
+    -webkit-appearance: revert;
+    appearance: revert;
+}
+
+/* [type="checkbox"], [type="radio"]を含むlabelはdisplay: grid */
+:where(label:has([type="checkbox"], [type="radio"])) {
+    display: grid;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: auto auto;
+    width: fit-content;
+    margin-top: 0.25em;
+}
+
+/* detailsとsummary */
+/* summaryのリストスタイルを復元 */
+:where(summary) {
+    list-style: revert;
+}
+
+.summary-span {
+    text-decoration: underline;
+}
+
+details[open] > .summary-span {
+    text-decoration: none;
+}
+
+/* dl の横並び */
+.dl-yoko {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.5em;
+}
+
+/* ボックス */
+.box {
+    border: solid 1px var(--hr-border-color);
+    padding: 1.25em;
+    margin: 1.5em 0;
+}
+
+.box-another {
+    border: solid 1px var(--text-color);
+}
+
+/* スクロールボックス */
+.scroll-box {
+    padding: 0;
+}
+
+.scroll-box[contenteditable="true"] {
+    border-radius: 4px;
+    font-size: max(1em, 1rem);/* フォーム入力のアクセシビリティを考慮して1rem以上を設定。bodyと同じフォントサイズにしたいときは削除する */
+}
+
+.scroll-box-yoko {
+    white-space: pre;
+    overflow-x: auto;
+    padding: 1em;
+}
+
+.scroll-box-tate {
+    white-space: pre-wrap;
+    overflow-y: auto;
+    max-height: 5em;
+    padding: 1em;
+}
+
+/* シンプルな画像リンク */
+.simple-imglink {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);/* リンクのブロックは2列 */
+    gap: 1.5em;
+    margin-top: 1.5em;
+}
+
+/* シンプルな画像リンク、画面幅が大きい時はリンクのブロックを3列に */
+@media screen and (min-width: 45em) {
+    .simple-imglink {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.simple-imglink-a {
+    border: solid 1px #ccc;
+    padding: 1em;
+    border-radius: 4px;
+}
+
+.simple-imglink-imgbox {
+    margin-bottom: 1em;
+    aspect-ratio: 1 / 1;
+}
+
+.simple-imglink-imgbox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* カラーつきの表 */
+.table-color th,
+.table-color td {
+    border: solid 1px var(--text-color);
+    padding: 0.125em 1.5em;
+}
+
+.table-color th {
+    background-color: var(--main-color-t);
+}
+
+.table-scroll {
+    display: block;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+/* 名前変換その1：苗字名前、ボタン1個 を作る */
+.name-conversion-1 {
+    display: grid;
+    align-items: end;
+    grid-template-columns: 8em 8em auto;
+    column-gap: 0.5em;
+}
+
+.name-conversion-1 :is(input, button, select) {
+    width: fit-content;
+}
+
+/* 名前変換その2：入力欄多め、ボタン2個 を作る */
+.name-conversion-2-input {
+    display: grid;
+    align-items: end;
+    column-gap: 0.5em;
+    row-gap: 1em;
+}
+
+.name-conversion-2-input label {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 5em auto;
+    width: fit-content;
+}
+
+.name-conversion-2-button {
+    display: flex;
+    column-gap: 1em;
+}
+
+/* お問い合わせフォーム */
+.form-block + .form-block {
+    margin-top: 2em;
+}
+
+/* 横幅100%にしたいとき */
+.form-full-width-formitem {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* 必須の赤文字 */
+.hissu {
+    color: var(--red);
+} 
